@@ -1,0 +1,52 @@
+
+<a ng-href="#/dashboard">Dashboard</a>
+<a ng-href="#/logout" ng-click='tc.logout()'>Logout</a>
+<h3>Here are my topics!</h3>
+
+
+<!-- {{tc.topic._id}} -->
+
+<h2><a ng-href="#/user/{{tc.topic._user._id}}">{{ tc.topic._user.name }}</a> posted a topic in {{tc.topic.category}}:</h2>
+
+<h3>{{tc.topic.title}}</h3>
+
+<p>Description: {{tc.topic.description}}</p>
+
+<p>Post an answer here....</p>
+
+
+
+<form>
+	<input type='textarea' ng-model='tc.newPost.post'>
+	<input type='submit' value='Post' ng-click="tc.addPost(tc.newPost)">
+</form>
+<!-- {{tc.topic.posts}} -->
+
+<!-- topic.posts refers to line 10 in topic controller -->
+<ul>
+	<!-- {{x.post}} -->
+	
+<!-- 	<li><a ng-href="#/user/{{tc.post._user._id}}">{{tc.post._user.name}} says: {{post}}</li> -->
+	<li ng-repeat='x in tc.topic.posts'>
+		<a ng-href="#/user/{{x._user._id}}">{{x._user.name}}</a> said: {{x.post}}<br>
+		
+		{{x.likes}}<input type='submit' value="^" ng-click="tc.like(x._id, {likes: x.likes})">
+
+		{{x.dislikes}}<input type='submit' value="v" ng-click="tc.dislike(x._id, {dislikes: x.dislikes})">
+		<form ng-submit='tc.newComment(x.newComment, x._id)'>
+			<!-- {{tc[x]}} -->
+			
+			<input type='textarea' ng-model="x.newComment">
+			<input type='submit' value='Comment'>
+		</form>
+<!-- 		<span ng-repeat="comment in post.comments">
+			{{comment.content}}<br> -->
+		<!-- <span ng-repeat='for comment in tc.topic.posts'> -->
+		<ul ng-repeat='y in x.comments'>
+			<a ng-href="#/user/{{y._user._id}}">{{y._user.name}}</a> says: {{y.content}}
+			<!-- <li>{{y.[].content}}<br> -->
+			</li>
+		</ul>
+	</li>
+</ul>
+

@@ -1,0 +1,48 @@
+	<div>
+		<!-- ng-controller="dashboardController as dc" -->
+		<h1>Welcome, {{dc.user.name}}</h1>
+
+		<a ng-href="#/logout" ng-click='dc.logout()'>Logout</a>
+
+		<br>
+		<p>Search by Topic:<input type="text" ng-model="filter_topics"></p>
+		<table>
+			<tr>
+				
+				<th>Category</th>
+				<th>Topic</th>
+				<th>User Name</th>
+				<th>Posts</th>
+			</tr>
+
+			<tr ng-repeat='topic in dc.topics | filter: filter_topics' >
+				
+				<td>{{ topic.category }}</td>
+				<td><a ng-href="#/topic/{{topic._id}}">{{ topic.title }}</a></td>
+				<td><a ng-href="#/user/{{topic._user._id}}">{{ topic._user.name }}</a></td>
+				<td>{{ topic.posts.length }}</td>
+			</tr>
+		</table>
+		<div>
+			<h3>Add a New Topic</h3>
+			<form>
+				<label> Topic: <input type="text" ng-model="dc.newTopic.title"></label><br>
+				<label> Description: <textarea ng-model="dc.newTopic.description"></textarea></label><br>
+				<label> Category:
+					<select ng-model="dc.newTopic.category">
+						<option value='UX/UI Design'>UX/UI Design</option>
+						<option value='Web Development'>Web Development</option>
+						<option value='Javascript'>Javascript</option>
+						<option value='Python'>Python</option>
+						<option value='Ruby on Rails'>Ruby on Rails</option>
+						<option value='Black Hat Hacking'>Black Hat Hacking</option>
+						<option value='White Hat Security'>White Hat Security</option>
+						<option value='Grey Hat Vagabonding'>Grey Hat Vagabonding</option>
+					</select>
+				<input type="submit" value='Submit' ng-click="dc.addTopic(dc.newTopic)">
+			</form>
+
+		</div>
+		
+	</div>
+	
